@@ -1,0 +1,59 @@
+# sdr
+
+= Setting up the hackrf sdr under Ubuntu 16=
+
+Links:
+https://mborgerson.com/getting-started-with-the-hackrf-one-on-ubuntu-14-04
+
+ == hackrf host software ==
+./hackrf
+./hackrf/host/README.md
+
+This repository contains host software (Linux/Windows) for HackRF, a project to
+produce a low cost, open source software radio platform.
+
+##How to build the host software on Linux:
+
+###Prerequisites for Linux (Debian/Ubuntu):
+`sudo apt-get install build-essential cmake libusb-1.0-0-dev pkg-config libfftw3-dev`
+
+###Build host software on Linux:
+```
+mkdir host/build
+cd host/build
+cmake ..
+make
+sudo make install
+sudo ldconfig
+
+== install gnu radio ==
+sudo apt-get install gnuradio \
+                       gnuradio-dev \
+                       gr-iqbal
+== install GROsmoSDR ==
+
+GrOsmoSDR is essentially middle-ware that allows GNU Radio to communicate with the HackRF software to control your HackRF One.
+git clone git://git.osmocom.org/gr-osmosdr
+cd gr-osmosdr/
+ls
+mkdir build && cd build
+cmake ../
+make 
+sudo make installl 
+sudo make install
+sudo ldconfig
+
+== install Gqrx == 
+git clone https://github.com/csete/gqrx.git
+cd gqrx
+mkdir build && cd build
+qmake ../
+make
+
+./gqrx
+
+app seems to crash on boot, resetting config helps:
+./gqrx -r
+
+
+
